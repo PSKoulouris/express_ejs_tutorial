@@ -88,8 +88,15 @@ app.get("/restaurants", function(req,res){
     //res.sendFile("Hello"); //sendFile to transfer a file with a psecific path. 2: create the file path to access file
     //const htmlFilePath = path.join(__dirname, "views", "restaurants.html")
     //res.sendFile(htmlFilePath)
-    res.render("restaurants")
+    
+//read restauatnt.json file to dynamically update the restaurant in html/ejs restaurants.ejs:
+    const filePath = path.join(__dirname, 'data','restaurants.json')
+    const fileData = fs.readFileSync(filePath)
+    const restaurants = JSON.parse(fileData)
+    res.render("restaurants", {numberOfRestaurants:restaurants.length, storedRests: restaurants})
 
+
+    //res.render("restaurants") code before the dynamically injected restaurants data into restaurants.ejs
 })
 
 
