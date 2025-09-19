@@ -3,6 +3,8 @@
 
 const express = require ("express"); //name of the package
 
+const uuid = require("uuid") //installed with npm install uuid
+
 
 const path = require("path");
 const fs = require("fs");
@@ -60,8 +62,10 @@ app.get("/recommend", function(req,res){
 
 //Form submission for http://localhost:3000/recommend
 
-    app.post('/recommend', function(req,res){
+app.post('/recommend', function(req,res){
     const restaurant = req.body
+
+    restaurant.rId = uuid.v4() //generate Id keys automatically. use version v4 for integers only 
  
     //const htmlFilePath = path.join(__dirname,'views','confirm.html')
    
@@ -108,9 +112,25 @@ app.get("/restaurants", function(req,res){
 //handle urls for all different restaurants (app.get("/restaurants/r1"), app.get("/restaurants/r2")). static urls
 //Dynamic URLS:
 
-app.get("/restaurants/:rId", function(req, res){
+app.get("/restaurants/:rid", function(req, res){
     //send back the right restaurant details:
+    const restaurantId = req.params.rid
+    console.log(restaurantId)
+
+    const filePath = path.join(__dirname, 'data','restaurants.json')
+    const fileData = fs.readFileSync(filePath)
+    const restaurants = JSON.parse(fileData)
     
+    for(const restaurant of restaurants){
+        if(restaurantId === restaurant.rId){
+            return res.render("restaurants-details", {restaurant})
+        }
+    }
+
 })
 
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 app.listen(3000) //3000 or 8000 for accessible secure ports
