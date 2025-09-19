@@ -1,4 +1,4 @@
-Tutorial Node.js, Express.js Back-end
+#Tutorial Node.js, Express.js Back-end with Embeded JavaScript(ejs)
 
 Install Express.js:
 
@@ -25,7 +25,7 @@ npm install nodemon --save-dev
 
     npm start
 
-5- Install ejs:
+5- Install Embeded Java Script (ejs):
   
     npm install ejs
 
