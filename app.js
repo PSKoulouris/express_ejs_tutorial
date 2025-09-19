@@ -15,7 +15,7 @@ app.use(express.static("public"));
 //encode data  to be readable
 app.use(express.urlencoded({extended:false}))
 
-//after npm install ejs, set ejs,andthen set the path to views (html files). Rename the html files to .ejs to suport html with javascript: Install extension ejs language then in search reload editor with >reload. Create new folder includes in views then three files: head.ejs...
+//after npm install ejs, set ejs,and then set the path to views (html files). Rename the html files to .ejs to suport html with javascript: Install extension ejs language then in search reload editor with >reload. Create new folder includes in views then three files: head.ejs...
 app.set("views", path.join(__dirname, "views"))
 app.set("view engine", "ejs")
 
