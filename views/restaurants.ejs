@@ -16,56 +16,33 @@
       <h1>Recommended restaurants</h1>
 
 
-
-      <% if (numberOfRestaurants === 0) { %>
+        <% if (numberOfRestaurants === 0) { %>
         <p>No Restaurants Found! You can recommend Some!</p>
-      <% } else if(numberOfRestaurants === 1) {%>
-        <p>We found <%= numberOfRestaurants %> Restaurant</p>
       <% } else {%>
-        <p>We found <%= numberOfRestaurants %> Restaurants</p>
-      <% } %>
-      <p>Find your next favorite restaurants with help of our other users!</p>
-      <ul id="restaurants-list">
-       <% for( const restaurant of storedRests) { %>
-          <li class="restaurant-item">
-            <article>
-              <h2> <%= restaurant.name %></h2>
-              <div class="restaurant-meta">
-                <p><%= restaurant.cuisine %></p>
-                <p><%= restaurant.address %></p>
-              </div>
-              <p>
-                <%= restaurant.description %>
-              </p>
-              <div class="restaurant-actions">
-                <a href="<%= restaurant.website %>">View Website</a>
-              </div>
-            </article>
-          </li>
-       <% }
-    %>
-    
-       
-  <!-- li returns data from database: 
+        <p>
+          We found
+          <% if(numberOfRestaurants ===1 ){%>
+            <%= numberOfRestaurants %> restaurant
+          <% }else{ %>
+              <%= numberOfRestaurants %> restaurants
+          <% } %>
+        </p>
 
-<ul id="restaurants-list">
-        <li class="restaurant-item">
-          <article>
-            <h2>Restaurant Title</h2>
-            <div class="restaurant-meta">
-              <p>Mexican</p>
-              <p>Address of the restaurant, including city</p>
-            </div>
-            <p>
-              A short description, explaining why this restaurant is awesome!
-            </p>
-            <div class="restaurant-actions">
-              <a href="">View Website</a>
-            </div>
-          </article>
-        </li>
-  -->
-      </ul>
+        <p>Find your next favorite restaurants with help of our other users!</p>
+
+        <ul id="restaurants-list">
+           <% for( const restaurant of storedRests) { %>
+                <%- include('includes/restaurants/restaurant-item',
+                  {
+                    restaurant : restaurant
+                  }
+                ) 
+              %>
+
+           <% } %>
+        </ul>
+      <% } %>
+
     </main>
   </body>
 </html>

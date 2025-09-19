@@ -105,4 +105,12 @@ app.get("/restaurants", function(req,res){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+//handle urls for all different restaurants (app.get("/restaurants/r1"), app.get("/restaurants/r2")). static urls
+//Dynamic URLS:
+
+app.get("/restaurants/:rId", function(req, res){
+    //send back the right restaurant details:
+    
+})
+
 app.listen(3000) //3000 or 8000 for accessible secure ports
