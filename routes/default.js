@@ -1,3 +1,5 @@
+/*
+
 const express = require("express")
 
 const router = express.Router()
@@ -23,3 +25,5 @@ router.get("/about", function(req,res){
 
 //export information from the file:
 module.exports = router
+
+*/
