@@ -23,7 +23,7 @@ npm install nodemon --save-dev
     },
 4- Start your app with Nodemon instead of plain Node:
 
-npm start
+    npm start
 
 5- Install ejs:
   
