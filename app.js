@@ -5,6 +5,9 @@ const express = require ("express"); //name of the package
 
 const uuid = require("uuid") //installed with npm install uuid
 
+const defaultRoutes = require('./routes/default')
+const restaurantsRoutes = require('./routes/restaurants')
+
 
 const path = require("path");
 const fs = require("fs");
@@ -14,7 +17,7 @@ const app = express(); // return an object
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
+/*
 //Create a middleware using public to make css works:
 app.use(express.static("public"));
 
@@ -132,7 +135,24 @@ app.get("/restaurants/:rid", function(req, res){
     }
 
 })
+*/
 
+
+app.use(express.static('public'))
+app.use(express.urlencoded({extended:false}))
+
+app.use('/',defaultRoutes)
+app.use('/',restaurantsRoutes)
+
+
+app.set('views', path.join(__dirname,'views'))
+app.set('view engine', 'ejs')
+
+//For all other unsupported routes
+
+app.use(function(req,res){
+    res.status(404).render('404')
+})
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
