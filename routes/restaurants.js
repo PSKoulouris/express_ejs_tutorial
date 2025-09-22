@@ -1,14 +1,16 @@
 //add all functions required for the restaurants:
-
 const express = require('express')
+const uuid = require("uuid") //installed with npm install uuid
 
-const router = express.Router()
+const path = require('path')  
+const fs = require('fs')   
+const router = express.Router() 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 router.get('/restaurants',function(req,res){
-    const filePath = path.join(__dirname,'data','restaurants.json')
+    const filePath = path.join(__dirname,"..",'data','restaurants.json')
 
     const fileData =  fs.readFileSync(filePath)
     const restaurants = JSON.parse(fileData)
@@ -21,7 +23,7 @@ router.get('/restaurants/:rid',function(req,res){
     const restaurantId = req.params.rid
     //console.log(restaurantId)
 
-    const filePath = path.join(__dirname,'data','restaurants.json')
+    const filePath = path.join(__dirname,"..",'data','restaurants.json')
     const fileData = fs.readFileSync(filePath)
 
     const restaurants = JSON.parse(fileData)
@@ -42,7 +44,7 @@ router.post('/recommend', function(req,res){
     const restaurant = req.body
     restaurant.rId = uuid.v4()
 
-    const filePath = path.join(__dirname, 'data','restaurants.json')
+    const filePath = path.join(__dirname,"..", 'data','restaurants.json')
     
     const fileData = fs.readFileSync(filePath)
     const restaurants = JSON.parse(fileData)

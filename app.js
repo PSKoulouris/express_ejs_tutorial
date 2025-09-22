@@ -3,10 +3,10 @@
 
 const express = require ("express"); //name of the package
 
-const uuid = require("uuid") //installed with npm install uuid
-
 const defaultRoutes = require('./routes/default')
 const restaurantsRoutes = require('./routes/restaurants')
+
+const uuid = require("uuid") //installed with npm install uuid
 
 
 const path = require("path");
@@ -148,7 +148,7 @@ app.use('/',restaurantsRoutes)
 app.set('views', path.join(__dirname,'views'))
 app.set('view engine', 'ejs')
 
-//For all other unsupported routes
+//For all other unsupported routes:middleware function to handle 404 errors
 
 app.use(function(req,res){
     res.status(404).render('404')
