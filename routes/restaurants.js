@@ -9,11 +9,15 @@ const router = express.Router()
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-router.get('/restaurants',function(req,res){
-    const filePath = path.join(__dirname,"..",'data','restaurants.json')
+const filePath = path.join(__dirname,"..",'data','restaurants.json')
+const fileData =  fs.readFileSync(filePath)
+const restaurants = JSON.parse(fileData)
 
-    const fileData =  fs.readFileSync(filePath)
-    const restaurants = JSON.parse(fileData)
+router.get('/restaurants',function(req,res){
+    //const filePath = path.join(__dirname,"..",'data','restaurants.json')
+
+    //const fileData =  fs.readFileSync(filePath)
+    //const restaurants = JSON.parse(fileData)
 
     res.render('restaurants', {numberOfRestaurants : restaurants.length, storedRests :restaurants})
 })
@@ -23,10 +27,10 @@ router.get('/restaurants/:rid',function(req,res){
     const restaurantId = req.params.rid
     //console.log(restaurantId)
 
-    const filePath = path.join(__dirname,"..",'data','restaurants.json')
-    const fileData = fs.readFileSync(filePath)
+   // const filePath = path.join(__dirname,"..",'data','restaurants.json')
+    //const fileData = fs.readFileSync(filePath)
 
-    const restaurants = JSON.parse(fileData)
+    //const restaurants = JSON.parse(fileData)
 
     for(const restaurant of restaurants){
         if(restaurantId === restaurant.rId){
@@ -44,10 +48,10 @@ router.post('/recommend', function(req,res){
     const restaurant = req.body
     restaurant.rId = uuid.v4()
 
-    const filePath = path.join(__dirname,"..", 'data','restaurants.json')
+    //const filePath = path.join(__dirname,"..", 'data','restaurants.json')
     
-    const fileData = fs.readFileSync(filePath)
-    const restaurants = JSON.parse(fileData)
+    //const fileData = fs.readFileSync(filePath)
+    //const restaurants = JSON.parse(fileData)
     //restaurants.rId = restaurants.length
     restaurants.push(restaurant)
 
@@ -63,7 +67,6 @@ router.get('/confirm',function(req,res){
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
 module.exports = router
 
