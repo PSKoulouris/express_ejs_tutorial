@@ -9,15 +9,30 @@ const router = express.Router()
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const resUtils = require("../util/restaurants.utils")
+/*
+
 const filePath = path.join(__dirname,"..",'data','restaurants.json')
-const fileData =  fs.readFileSync(filePath)
-const restaurants = JSON.parse(fileData)
+function getStoredRestaurants(){
+    const fileData =  fs.readFileSync(filePath)
+    const restaurants = JSON.parse(fileData)
+    return restaurants //JSON.parse(fileData)
+}
+
+function storeRestaurants(r){
+    fs.writeFileSync(filePath, JSON.stringify(r))
+}
+*/
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 router.get('/restaurants',function(req,res){
     //const filePath = path.join(__dirname,"..",'data','restaurants.json')
 
     //const fileData =  fs.readFileSync(filePath)
     //const restaurants = JSON.parse(fileData)
+    const restaurants = resUtils.getStoredRestaurants()
 
     res.render('restaurants', {numberOfRestaurants : restaurants.length, storedRests :restaurants})
 })
@@ -31,6 +46,8 @@ router.get('/restaurants/:rid',function(req,res){
     //const fileData = fs.readFileSync(filePath)
 
     //const restaurants = JSON.parse(fileData)
+
+    const restaurants = resUtils.getStoredRestaurants()
 
     for(const restaurant of restaurants){
         if(restaurantId === restaurant.rId){
@@ -48,6 +65,8 @@ router.post('/recommend', function(req,res){
     const restaurant = req.body
     restaurant.rId = uuid.v4()
 
+    const restaurants = resUtils.getStoredRestaurants()
+
     //const filePath = path.join(__dirname,"..", 'data','restaurants.json')
     
     //const fileData = fs.readFileSync(filePath)
@@ -55,7 +74,8 @@ router.post('/recommend', function(req,res){
     //restaurants.rId = restaurants.length
     restaurants.push(restaurant)
 
-    fs.writeFileSync(filePath, JSON.stringify(restaurants))
+    //fs.writeFileSync(filePath, JSON.stringify(restaurants))
+    resUtils.storeRestaurants(restaurants)
 
     res.redirect('confirm')
 })
