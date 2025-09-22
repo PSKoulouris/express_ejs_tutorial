@@ -13,6 +13,7 @@ function storeRestaurants(r){
 }
 
 module.exports = {
-    getStoredRestaurants : getStoredRestaurants,
+    getStoredRestaurants : getStoredRestaurants,  // Key : Value without the () for the function as it should not be called here but with require()
     storeRestaurants : storeRestaurants
 }
+
