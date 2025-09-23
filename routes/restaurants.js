@@ -84,6 +84,24 @@ router.get('/confirm',function(req,res){
     res.render('confirm')
 })
 
+
+
+//Edit a restaurant
+router.get('/restaurants/:rid/edit',function(req,res){
+    //retrieve the id of the restaurant to be retrieved:
+    const restaurantId = req.params.rid
+    //Retrieve all restaurants:
+    const restaurants = resUtils.getStoredRestaurants()
+
+    //find the restaurant index:
+    const restaurant = restaurants.find(r => r.rId === restaurantId)
+    if(!restaurant){
+        return res.status(404).render('404')
+    }
+    res.status(200).render('edit-recommend', {restaurant})
+
+})
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

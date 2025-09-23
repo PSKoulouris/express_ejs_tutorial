@@ -156,6 +156,7 @@ app.use(function(req,res){
 
 //if path not found or changed, or something wrong that happens on the server side handled with:
 app.use(function(err, req, res, next){  //when using erro, use next to handle the after error.
+    console.log(err)
     res.status(500).render('500')
 })
 
