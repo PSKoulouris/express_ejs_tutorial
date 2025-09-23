@@ -89,7 +89,9 @@ router.get('/confirm',function(req,res){
     res.render('confirm')
 })
 
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Edit and save edited information:
 
 //Edit a restaurant
 router.get('/restaurants/:rid/edit',function(req,res){
@@ -106,6 +108,7 @@ router.get('/restaurants/:rid/edit',function(req,res){
     res.status(200).render('edit-recommend', {restaurant})
 
 })
+
 
 //Save the edited restaurant:
 router.post('/restaurants/:rid/edit',function(req,res){
@@ -132,6 +135,46 @@ router.post('/restaurants/:rid/edit',function(req,res){
 
     res.redirect("/restaurants")
 })
+
+
+
+//Delete the restaurant:
+
+router.get('/restaurants/:rid/delete',function(req,res){
+    //retrieve the id of the restaurant to be retrieved:
+    const restaurantId = req.params.rid
+     //Retrieve all restaurants:
+    const restaurants = resUtils.getStoredRestaurants()
+
+    //find the restaurant with a filter():
+    const filteredRestaurants = restaurants.filter(r => r.rId !== restaurantId)
+
+    resUtils.storeRestaurants(filteredRestaurants)
+
+    res.redirect("/restaurants")
+})
+
+
+router.post('/restaurants/:rid/edit',function(req,res){
+    //retrieve the element restaurant id
+    const restaurantId = req.params.rid
+   
+    const restaurants = resUtils.getStoredRestaurants()
+    //Find the restaurant index:
+
+    const restaurantIndex = restaurants.findIndex( r => r.rId === restaurantId)
+
+    if(restaurantIndex === -1){
+        return res.status(404).render("404")
+    }
+
+
+    resUtils.storeRestaurants(restaurants)
+
+    res.redirect("/restaurants")
+})
+
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
